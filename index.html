@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imágenes Aleatorias de Gatos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Click en el botón y maiu miau</h1>
+    <button id="getCatButton">Botón miau miau</button>
+    <div id="catImageContainer">
+        <img id="catImage" src="" alt="Imagen de Gato">
+    </div>
+
+    <script>
+        const getCatButton = document.getElementById("getCatButton");
+        const catImage = document.getElementById("catImage");
+
+        // Función para cargar una imagen de gato aleatoria desde la API
+        async function fetchRandomCatImage() {
+            try {
+                const response = await fetch("https://api.thecatapi.com/v1/images/search");
+                const data = await response.json();
+                const imageUrl = data[0].url;
+                catImage.src = imageUrl;
+            } catch (error) {
+                console.error("Error al obtener la imagen del gato:", error);
+            }
+        }
+
+        // Asociar la función a un evento click en el botón
+        getCatButton.addEventListener("click", fetchRandomCatImage);
+
+        // Cargar una imagen de gato al cargar la página
+        fetchRandomCatImage();
+    </script>
+</body>
+</html>
